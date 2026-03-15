@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGITAL MEDIA | Design Grid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@200&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root { --bg: #0a0a0a; --accent: #8c7e6d; }
+        body { margin: 0; background: var(--bg); color: white; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+        
+        .bg-container { position: fixed; top: 0; left: 0; width: 110%; height: 110%; z-index: -1; }
+        .bg-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.2; filter: brightness(0.4); }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, transparent, #000); z-index: -1; }
+
+        .navbar { position: fixed; top: 0; width: 100%; padding: 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-sizing: border-box; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; letter-spacing: 5px; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { color: white; text-decoration: none; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; transition: 0.4s; }
+        .nav-links a:hover { opacity: 1; color: var(--accent); }
+
+        .page-header { padding: 180px 0 60px; text-align: center; }
+        h1.big-title { font-family: 'Cormorant Garamond', serif; font-size: 8.5vw; font-weight: 300; text-transform: uppercase; letter-spacing: 20px; margin: 0; }
+        .char { display: inline-block; opacity: 0; transform: translateY(40px); }
+
+        .gallery-container { padding: 0 5% 150px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 80px; }
+        
+        /* Flexbox Row logic - ensures all children match the tallest child */
+        .row { display: flex; gap: 30px; align-items: stretch; width: 100%; }
+        
+        .row-3 .gallery-item { width: calc(33.33% - 20px); }
+        .row-2 .gallery-item { width: calc(50% - 15px); }
+
+        .gallery-item { opacity: 0; transform: translateY(60px); display: flex; flex-direction: column; }
+        
+        .img-wrap { 
+            flex-grow: 1; /* This forces the box to fill the vertical space of the row */
+            overflow: hidden; 
+            border: 0.5px solid rgba(255,255,255,0.1); 
+            background: rgba(255,255,255,0.02); 
+            padding: 10px; 
+            display: flex;
+        }
+
+        .gallery-item img { 
+            width: 100%; 
+            height: 100%; /* Spans the full height of the stretched container */
+            object-fit: cover; /* Keeps the aspect ratio clean while filling the space */
+            display: block; 
+            transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+
+        .gallery-item:hover img { transform: scale(1.03); }
+
+        .item-caption { 
+            margin-top: 20px; 
+            color: var(--accent); 
+            font-family: 'Cormorant Garamond', serif; 
+            letter-spacing: 2px; 
+            font-size: 12px; 
+            text-transform: uppercase; 
+            border-left: 1px solid var(--accent); 
+            padding-left: 15px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-container">
+        <img id="parallax-bg" src="p9.JPG">
+        <div class="overlay"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">DESIGN<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="design.html">Design</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header"><h1 class="big-title" id="anim-title">Design</h1></div>
+
+    <div class="gallery-container">
+        <div class="row row-3">
+            <div class="gallery-item">
+                <div class="img-wrap"><img src="p1.png.png"></div>
+                <div class="item-caption">01 // Photo With Brushes Project; Lebron James </div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-wrap"><img src="p26.jpg"></div>
+                <div class="item-caption">02 // Kobe Bryant Textured Background Project</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-wrap"><img src="p2.png.png"></div>
+                <div class="item-caption">03 // photo WIth Brushes Project;Kobe Bryant</div>
+            </div>
+        </div>
+
+        <div class="row row-2">
+            <div class="gallery-item">
+                <div class="img-wrap"><img src="p4.png.png"></div>
+                <div class="item-caption">04 // Atmoic Habitats Project</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-wrap"><img src="p5.png.png"></div>
+                <div class="item-caption">05 // Tyography Project</div>
+            </div>
+        </div>
+
+        <div class="row row-3">
+            <div class="gallery-item">
+                <div class="img-wrap"><img src="p22.png"></div>
+                <div class="item-caption">06 // Clone Stamp Project</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-wrap"><img src="p23.png"></div>
+                <div class="item-caption">07 // Object Movement & Duplication Project</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-wrap"><img src="p24.png"></div>
+                <div class="item-caption">08 // COlor Isolation and Emphasis Project</div>
+            </div>
+        </div>
+
+        <div class="row row-2">
+            <div class="gallery-item">
+                <div class="img-wrap"><img src="p25.png"></div>
+                <div class="item-caption">09 // Atmoic Habitats Project</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-wrap"><img src="p3.png.png"></div>
+                <div class="item-caption">10 // Starry Gradient Night Project</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        window.addEventListener('mousemove', (e) => {
+            const x = (e.clientX/window.innerWidth - 0.5) * 30; 
+            const y = (e.clientY/window.innerHeight - 0.5) * 30;
+            gsap.to("#parallax-bg", { x: x, y: y, duration: 2, ease: "power2.out" });
+        });
+
+        const text = document.getElementById('anim-title');
+        text.innerHTML = text.textContent.split("").map(char => 
+            char === " " ? " " : `<span class='char'>${char}</span>`
+        ).join("");
+        
+        gsap.to(".char", { opacity: 1, y: 0, stagger: 0.08, duration: 1.5, ease: "expo.out", delay: 0.5 });
+
+        gsap.utils.toArray(".gallery-item").forEach((item) => {
+            gsap.to(item, { 
+                scrollTrigger: { trigger: item, start: "top 90%", toggleActions: "play none none none" }, 
+                opacity: 1, y: 0, duration: 1.5, ease: "power4.out" 
+            });
+        });
+    </script>
+</body>
+</html>

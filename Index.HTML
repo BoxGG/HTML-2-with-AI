@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGITAL MEDIA | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@200&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root { --bg: #0a0a0a; --accent: #8c7e6d; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; }
+        
+        /* Navbar */
+        .navbar { position: fixed; top: 0; width: 100%; padding: 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-sizing: border-box; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; letter-spacing: 5px; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { color: white; text-decoration: none; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; transition: 0.4s; }
+        .nav-links a:hover { opacity: 1; color: var(--accent); }
+
+        /* Background Wrapper */
+        .bg-wrap { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; overflow: hidden; }
+        
+        #main-bg { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            filter: brightness(0.4) sepia(0.2); 
+            transform: scale(1.1); 
+        }
+        
+        .overlay { position: absolute; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, #000 100%); z-index: 2; top: 0; left: 0; }
+
+        /* Hero Content */
+        .hero { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; text-align: center; }
+        .sub-tag { color: var(--accent); letter-spacing: 8px; font-size: 10px; margin-bottom: 20px; opacity: 0; }
+        
+        .title-container { 
+            display: grid; 
+            place-items: center; 
+            margin-bottom: 50px;
+            width: 100%;
+        }
+        
+        h1 { 
+            grid-area: 1 / 1 / 2 / 2; 
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: 5vw; 
+            font-weight: 300; 
+            line-height: 1.1; 
+            margin: 0; 
+            white-space: nowrap; 
+        }
+        
+        .char { display: inline-block; opacity: 0; transform: translateY(20px); }
+        #main-title { visibility: hidden; } 
+
+        /* Image Pillars */
+        .pillar-grid { display: flex; gap: 30px; width: 80%; height: 35vh; }
+        .item { flex: 1; opacity: 0; transform: translateY(40px); display: flex; flex-direction: column; }
+        .item-label { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-style: italic; color: var(--accent); margin-bottom: 10px; text-align: left; }
+        .img-holder { flex-grow: 1; overflow: hidden; border: 0.5px solid rgba(255,255,255,0.1); padding: 10px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); }
+        
+        .img-holder img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            /* Gray filter removed from here */
+            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        
+        .item:hover img { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+    <div class="bg-wrap">
+        <div class="overlay"></div>
+        <video id="main-bg" muted playsinline preload="auto">
+            <source src="p21.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">DIGITAL MEDIA<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="design.html">Design</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="hero">
+        <p class="sub-tag" id="sub-tag">VISUAL ARTIST & CREATOR</p>
+        
+        <div class="title-container">
+            <h1 id="gemini-credit">Digital Media Second HTML Project </h1>
+            <h1 id="main-title">Welcome to The Art of Light & Form.</h1>
+        </div>
+        
+        <div class="pillar-grid">
+            <div class="item"><div class="item-label">Perspective</div><div class="img-holder"><img src="p12.JPG"></div></div>
+            <div class="item"><div class="item-label">Composition</div><div class="img-holder"><img src="p7.JPG"></div></div>
+            <div class="item"><div class="item-label">Texture</div><div class="img-holder"><img src="p16.JPG"></div></div>
+            <div class="item"><div class="item-label">Archive</div><div class="img-holder"><img src="p9.JPG"></div></div>
+        </div>
+    </main>
+
+    <script>
+        function splitText(el) {
+            el.innerHTML = el.textContent.split("").map(char => 
+                char === " " ? "<span>&nbsp;</span>" : `<span class='char'>${char}</span>`
+            ).join("");
+            return el.querySelectorAll('.char');
+        }
+
+        const video = document.getElementById('main-bg');
+        const geminiTitle = document.getElementById('gemini-credit');
+        const mainTitle = document.getElementById('main-title');
+        
+        const geminiChars = splitText(geminiTitle);
+        const mainChars = splitText(mainTitle);
+
+        const tl = gsap.timeline();
+
+        video.addEventListener('loadedmetadata', function() {
+            video.play();
+            tl.to("#main-bg", { scale: 1, duration: 4, ease: "power2.out" })
+            .to(geminiChars, { opacity: 1, y: 0, stagger: 0.08, duration: 0.8, ease: "power3.out" }, "-=3.5")
+            .to(geminiChars, { opacity: 0, y: -10, stagger: 0.02, duration: 0.4, ease: "power3.in", delay: 0.4 })
+            .set(mainTitle, { visibility: "visible" })
+            .to(mainChars, { opacity: 1, y: 0, stagger: 0.08, duration: 0.8, ease: "expo.out" })
+            .to("#sub-tag", { opacity: 1, duration: 1 }, "-=0.2")
+            .to(".item", { 
+                opacity: 1, y: 0, stagger: 0.15, duration: 1.2, ease: "power2.out",
+                onComplete: () => { video.pause(); }
+            }, "-=0.5");
+        });
+    </script>
+</body>
+</html>
